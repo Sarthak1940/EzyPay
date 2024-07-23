@@ -18,6 +18,12 @@ interface PaymentInformation {
   user_id: string;
   amount: string;
 }
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "Hello, World!"
+  })
+})
 app.post("/hdfcWebhook", async (req, res) => {
   const paymentInformation: PaymentInformation = {
     token: req.body.token,
