@@ -35,7 +35,7 @@ export const createOnrampTransactions = async (provider: string, amount: number)
 
 async function webhookHandler(token: string, userId: string, amount: number) {
   try {
-    await axios.post(" http://localhost:3003/hdfcWebhook", {
+    await axios.post("https://bank-webhook.triumphinfluence.workers.dev/hdfcWebhook", {
       token: token,
       userId: userId,
       amount: amount.toString()
