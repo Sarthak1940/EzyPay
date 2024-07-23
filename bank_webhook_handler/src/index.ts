@@ -1,8 +1,15 @@
 import express from "express"
 import { PrismaClient } from "@prisma/client";
+import cors from "cors"
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: "https://ezy-pay-frontend.vercel.app",
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+}))
 
 const prisma = new PrismaClient();
 
