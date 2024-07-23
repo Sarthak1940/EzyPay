@@ -37,7 +37,7 @@ async function webhookHandler(token: string, userId: string, amount: number) {
   try {
     await axios.post(" http://localhost:3003/hdfcWebhook", {
       token: token,
-      user_identifier: userId,
+      userId: userId,
       amount: amount.toString()
     })
   } catch (error) {
