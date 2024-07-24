@@ -46,7 +46,7 @@ export default function () {
               setLoading(true)
               await createAccount(number, password, name, email)
               setLoading(false)
-              router.push("/dashboard")
+              router.push("/signin")
             }} disabled={loading} colour="bg-[#855bfb29] text-[#7132f5]">
             Create Account
             </Button>
