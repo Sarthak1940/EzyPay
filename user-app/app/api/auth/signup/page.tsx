@@ -1,8 +1,8 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-import { createAccount } from "../../../lib/actions/createAccount";
-import { redirect } from "next/navigation";
+import { createAccount } from "@/app/lib/actions/createAccount";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/src/card";
 import { TextInput } from "@/components/src/TextInput";
 import { Button } from "@/components/src/button";
@@ -13,6 +13,7 @@ export default function () {
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   return <div className="flex gap-20 justify-center items-center mx-auto mt-12 w-[70%]">
     <div className="hidden lg:block">
@@ -45,7 +46,7 @@ export default function () {
               setLoading(true)
               await createAccount(number, password, name, email)
               setLoading(false)
-              redirect("/dashboard")
+              router.push("/dashboard")
             }} disabled={loading} colour="bg-[#855bfb29] text-[#7132f5]">
             Create Account
             </Button>

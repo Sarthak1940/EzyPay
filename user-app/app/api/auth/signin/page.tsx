@@ -4,13 +4,14 @@ import { Card } from "@/components/src/card"
 import { TextInput } from "@/components/src/TextInput"
 import { signIn } from "next-auth/react"
 import Image from "next/image"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function () {
   const [number, setNumber] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   return <div className="flex gap-20 justify-center mx-auto mt-12 w-[60%]">
     <div className="hidden lg:block">
@@ -48,7 +49,8 @@ export default function () {
               setLoading(true)
               await signIn("google")
               setLoading(false)
-              redirect("/dashboard")
+              router.push("/dashboard")
+              
             }}>
                 <Image src="https://www.svgrepo.com/show/475656/google-color.svg" alt="google logo" width={24} height={24}/>
                 Login with Google
