@@ -33,12 +33,12 @@ export default function () {
             setEmail(val)
           }}></TextInput>
 
-          <TextInput label="Password" type="password" placeholder="1234567890" onChange={(val) => {
-            setPassword(val)
-          }}></TextInput>
-
           <TextInput label="Phone Number" placeholder="1234567890" onChange={(val) => {
             setNumber(val)
+          }}></TextInput>
+
+          <TextInput label="Password" type="password" placeholder="1234567890" onChange={(val) => {
+            setPassword(val)
           }}></TextInput>
 
           <div className="flex justify-center pt-4">
@@ -46,7 +46,7 @@ export default function () {
               setLoading(true)
               await createAccount(number, password, name, email)
               setLoading(false)
-              router.push("/signin")
+              router.push("/api/auth/signin")
             }} disabled={loading} colour="bg-[#855bfb29] text-[#7132f5]">
             Create Account
             </Button>
