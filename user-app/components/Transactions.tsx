@@ -14,7 +14,7 @@ export const Transactions = ({
 }) => {
 
     if (!transactions.length) {
-        return <Card title="Recent Transactions" className="max-h-fit mt-4">
+        return <Card title={title} className="max-h-fit mt-4">
             <div className="text-center pb-8 pt-8">
                 No Recent transactions
             </div>

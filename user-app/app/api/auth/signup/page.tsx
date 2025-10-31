@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Card } from "@/components/src/card";
 import { TextInput } from "@/components/src/TextInput";
 import { Button } from "@/components/src/button";
+import toast from "react-hot-toast";
 
 export default function () {
   const [email, setEmail] = useState("")
@@ -43,10 +44,21 @@ export default function () {
 
           <div className="flex justify-center pt-4">
             <Button onClick={async () => {
+              if (!name || !email || !number || !password) {
+                toast.error("Please fill in all fields")
+                return
+              }
               setLoading(true)
-              await createAccount(number, password, name, email)
+              try {
+                await createAccount(number, password, name, email)
+                toast.success("Account created successfully!")
+                setTimeout(() => {
+                  router.push("/dashboard")
+                }, 1000)
+              } catch (error: any) {
+                toast.error(error?.message || "Failed to create account. Please try again.")
+              }
               setLoading(false)
-              router.push("/api/auth/signin")
             }} disabled={loading} colour="bg-[#855bfb29] text-[#7132f5]">
             Create Account
             </Button>

@@ -4,6 +4,7 @@ import { initiateTransfer } from "../app/lib/actions/initiateTransfer";
 import { Button } from "./src/button";
 import { Card } from "./src/card";
 import { TextInput } from "./src/TextInput";
+import toast from "react-hot-toast";
 
 export const TransferMoney = () => {
 
@@ -25,10 +26,40 @@ export const TransferMoney = () => {
 
       <div className="flex justify-center pt-4">  
             <Button onClick={async () => {
+              if (!phoneNumber) {
+                toast.error("Please enter a phone number")
+                return
+              }
+              if (!amount || amount <= 0) {
+                toast.error("Please enter a valid amount")
+                return
+              }
+              
               setLoading(true)
-              await initiateTransfer(amount * 100, phoneNumber)   
-              window.location.reload(); 
-              setLoading(false)
+              try {
+                const result = await initiateTransfer(amount * 100, phoneNumber)
+                
+                if (result?.message === "User not authenticated") {
+                  toast.error("You must be logged in to transfer money")
+                  setLoading(false)
+                  return
+                }
+                
+                if (result?.message === "Insufficient funds") {
+                  toast.error("Insufficient funds")
+                  setLoading(false)
+                  return
+                }
+                
+                toast.success("Transfer initiated successfully!")
+                setTimeout(() => {
+                  window.location.reload()
+                }, 1000)
+              } catch (error: any) {
+                console.log("Error transferring money", error);
+                toast.error(error?.message || "Failed to transfer money. Please try again.")
+                setLoading(false)
+              }
             }} disabled={loading} colour="bg-[#855bfb29] text-[#7132f5]">
             Send Money
             </Button>

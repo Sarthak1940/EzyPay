@@ -11,7 +11,7 @@ const app = new Hono<{
 
 
 app.use(cors({
-  origin: "https://ezy-pay-frontend.vercel.app",
+  origin: ["https://ezy-pay-frontend.vercel.app", "http://localhost:3000"],
   allowMethods: ["POST"],
   allowHeaders: ["Content-Type","Authorization"]
 }))
@@ -31,7 +31,6 @@ app.post("/hdfcWebhook", async (c) => {
 
 
   const {token, userId, amount} = await c.req.json<PaymentInformation>()
-  console.log("userId: "+userId+" amount: "+amount+" token: "+token);
   
 
   try {

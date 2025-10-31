@@ -14,8 +14,8 @@ export const AppBarClient = () => {
   if(session.data?.user) {
     return <div>
     <Appbar>
-        <Button onClick={() =>{router.push("/deposit")}} disabled={false} colour="bg-[#855bfb29] 
-        text-[#7132f5] hidden sm:block">Deposit</Button>
+        <Button onClick={() =>{router.push(pathname === "/dashboard" ? "/deposit" : "/dashboard")}} disabled={false} colour="bg-[#855bfb29] 
+        text-[#7132f5] hidden sm:block">{pathname === "/dashboard" ? "Deposit" : "Home"}</Button>
         <Avatar/>
     </Appbar>
   </div>

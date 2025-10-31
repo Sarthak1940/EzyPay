@@ -9,7 +9,10 @@ async function getP2PTransaction() {
   const loggedInUserId = session?.user?.id
   const txns = await prisma.p2PTransaction.findMany({
       where: {
-         fromUserId: loggedInUserId
+         OR: [
+            { fromUserId: loggedInUserId },
+            { toUserId: loggedInUserId }
+         ]
       }
   })
 
@@ -22,7 +25,7 @@ async function getP2PTransaction() {
               provider: "",
               transfer: "send"
           }
-      }      
+      } else {
       return {
           time: t.startTime,
           amount: t.amount,
@@ -30,6 +33,7 @@ async function getP2PTransaction() {
           provider: "",
           transfer: "recieve"
       }
+    }
   })
 }
 
@@ -44,7 +48,7 @@ export default async function () {
   </div>
   <div className="gap-4 p-4">
       <div className="pt-4">
-          <Transactions transactions={recievedTransactions} title="Money Recieved"/>
+          <Transactions transactions={recievedTransactions} title="Money Received"/>
           <Transactions transactions={sentTransactions} title="Money Sent"/>
       </div>
   </div>
